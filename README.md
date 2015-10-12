@@ -2,6 +2,8 @@
 
 A webserver in Prolog which solves Sudoku (9x9) puzzles.
 
+This project uses [Dictionaries](http://www.swi-prolog.org/pldoc/man?section=dicts) and requires swi-prolog v7.
+
 ## Accepted format:
 
 ```json
