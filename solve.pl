@@ -23,8 +23,6 @@ replace_unknowns(Row, OutRow) :-
   maplist(replace_unknown, Row, OutRow).
 
 
-solve(Data, Solution):-
-  Puzzle = Data.puzzle,
-  maplist(replace_unknowns, Puzzle, SudokuPuzzle),
-  sudoku(SudokuPuzzle),
-  Solution = SudokuPuzzle.
+solve(Data, Solution) :-
+  maplist(replace_unknowns, Data.puzzle, Solution),
+  sudoku(Solution).
