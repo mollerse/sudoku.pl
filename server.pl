@@ -15,15 +15,18 @@ server(Port) :-
   http_server(http_dispatch, [port(Port)]).
 
 sudoku_handler(Req) :-
-  (member(method(post), Req)
-    ->
-      http_read_json_dict(Req, Data, []),
-      solve(Data, Solution),
-      cors_enable,
-      reply_json(Solution)
-    ;
-      throw(http_reply(server_error('Method not supported. Only POST.')))
-  ).
+  option(method(options), Req), !,
+  cors_enable(Req, [ methods([post]) ]),
+  format('~n').
+
+sudoku_handler(Req) :-
+  option(method(post), Req), !,
+  http_read_json_dict(Req, Data, []),
+  solve(Data, Solution),
+  cors_enable,
+  reply_json(Solution).
+
+sudoku_handler(_) :- throw(http_reply(server_error('Method not supported. Only POST.'))).
 
 main :-
   server(5000).
