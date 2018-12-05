@@ -1,4 +1,5 @@
-:- initialization main.
+:- initialization (main).
+:- set_prolog_flag(verbose, silent).
 
 :- use_module(library(http/thread_httpd)).
 :- use_module(library(http/http_dispatch)).
@@ -28,5 +29,5 @@ sudoku_handler(Req) :-
 
 sudoku_handler(_) :- throw(http_reply(server_error('Method not supported. Only POST.'))).
 
-main :-
+main:-
   server(5000).
