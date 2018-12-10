@@ -19,19 +19,20 @@ you will only get the first found.
 
 ## To start
 
-`prolog -f -q server.pl`
+```sh
+docker build . --tag sudoku.pl
+docker run -d -p 5000:5000 --name sudoku.pl sudoku.pl
+```
 
 ## To use
 
 ```
-curl -H "Content-type: application/json" -X POST -d [Your puzzle] [server]
+curl -H "Content-type: application/json" -X POST -d [Your puzzle] localhost:5000
 ```
 
 (or any other means of POSTing data at an url)
 
-Running example at http://sudoku.mornster.net
-
-```bash
+```sh
 curl -H "Content-Type: application/json" -X POST -d '{
   "puzzle": [
     [8,"?","?","?","?","?","?","?","?"],
@@ -44,9 +45,11 @@ curl -H "Content-Type: application/json" -X POST -d '{
     ["?","?",8,5,"?","?","?",1,"?"],
     ["?",9,"?","?","?","?",4,"?","?"]
   ]
-}' sudoku.mornster.net
+}' localhost:5000
 ```
-```
+
+Example response:
+```js
 [
   [8, 1, 2, 7, 5, 3, 6, 4, 9 ],
   [9, 4, 3, 6, 8, 2, 1, 7, 5 ],
